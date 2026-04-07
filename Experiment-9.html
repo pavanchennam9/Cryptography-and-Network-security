@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h3>Diffie-Hellman Demo</h3>
+p: <input id="p" value="23"><br>
+g: <input id="g" value="5"><br>
+Alice private (a): <input id="a" value="6"><br><br>
+<button onclick="run()">Generate Key</button>
+<p id="output"></p>
+<script>
+function power(base, exp, mod) {
+    let result = 1;
+    for (let i = 0; i < exp; i++) {
+        result = (result * base) % mod;
+    }
+    return result;
+}
+function run() {
+    let p = parseInt(document.getElementById("p").value);
+    let g = parseInt(document.getElementById("g").value);
+    let a = parseInt(document.getElementById("a").value);
+    let b = Math.floor(Math.random() * 10) + 1; // Bob private
+    let A = power(g, a, p);
+    let B = power(g, b, p);
+let keyA = power(B, a, p);
+    let keyB = power(A, b, p);
+    document.getElementById("output").innerHTML =
+        "Bob private (b): " + b + "<br>" +
+        "Shared key (Alice): " + keyA + "<br>" +
+        "Shared key (Bob): " + keyB;
+}
+</script>
+</body>
+</html>
+// Main calculation
+function calculate() {
+    let p = parseInt(document.getElementById("p").value);
+    let g = parseInt(document.getElementById("g").value);
+    let a = parseInt(document.getElementById("a").value);   if (b === 0) {
+        alert("Generate Bob's key first!");
+        return;
+    }
+    // Public keys
+    let A = power(g, a, p);
+    let B = power(g, b, p);
+    // Shared keys
+    let keyA = power(B, a, p);
+    let keyB = power(A, b, p);
+    // Display results
+    document.getElementById("A").innerText = A;
+    document.getElementById("B").innerText = B;
+    document.getElementById("keyA").innerText = keyA;
+    document.getElementById("keyB").innerText = keyB;
+}
+</script>
+</body>
+</html>
